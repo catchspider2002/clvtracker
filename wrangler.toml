@@ -1,0 +1,21 @@
+name = "clvtracker"
+main = "src/worker.ts"
+compatibility_date = "2026-01-01"
+
+# Secrets (never commit) — set with:
+#   wrangler secret put TXLINE_API_KEY
+#   wrangler secret put ANTHROPIC_API_KEY   # for the Claude CLV narrative
+# (No Container — a 1-minute cron captures opening/rolling/closing odds and computes CLV on full time.)
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[triggers]
+crons = ["* * * * *"]
+
+# matches + rolling + kv (JWT cache).
+[[d1_databases]]
+binding = "DB"
+database_name = "clvtracker"
+database_id = "16d5d3fc-7d5e-46bf-8e67-8e70a985b589"   # run: wrangler d1 create clvtracker
