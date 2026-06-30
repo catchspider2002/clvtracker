@@ -1,4 +1,4 @@
-// CLV Tracker — Closing Line Value calculator. THE judging centerpiece.
+// CLV Tracker - Closing Line Value calculator. THE judging centerpiece.
 // Pure, deterministic math. CLV = implied probability at close - implied probability at open.
 // Positive CLV = the line shortened toward this outcome (opening odds had value on it).
 //
@@ -25,8 +25,8 @@ export function calculateCLV(openingImplied, closingImplied) {
  */
 export function categorizeMagnitude(absDelta) {
   if (absDelta >= 0.10) return 'major';        // 10pp+
-  if (absDelta >= 0.05) return 'significant';  // 5–10pp
-  if (absDelta >= 0.02) return 'minor';        // 2–5pp
+  if (absDelta >= 0.05) return 'significant';  // 5-10pp
+  if (absDelta >= 0.02) return 'minor';        // 2-5pp
   return 'negligible';                         // < 2pp
 }
 
@@ -74,7 +74,7 @@ export function generateVerdict(pm) {
   if (sig('home') && pm.home.direction === 'shortened') return 'Money moved to the home team before kickoff';
   if (sig('away') && pm.away.direction === 'shortened') return 'Late money favoured the away side';
   if (sig('draw') && pm.draw.direction === 'shortened') return 'Market anticipated a tighter contest than the open suggested';
-  if (!sig('home') && !sig('draw') && !sig('away')) return 'Stable market — opening line held to close';
+  if (!sig('home') && !sig('draw') && !sig('away')) return 'Stable market - opening line held to close';
   return 'Mixed movement across the three outcomes';
 }
 

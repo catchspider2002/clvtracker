@@ -1,4 +1,4 @@
-// CLV Tracker — Cloudflare Worker. Capture cron + dashboard API + static assets.
+// CLV Tracker - Cloudflare Worker. Capture cron + dashboard API + static assets.
 import { listFixtures, getOdds, getResult, TxEnv } from './txline';
 import { calculateMatchCLV, MARKETS } from './clvCalculator.js';
 import { analyse } from './analyser';

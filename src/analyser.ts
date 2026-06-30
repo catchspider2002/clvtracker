@@ -1,4 +1,4 @@
-// CLV Tracker — Claude narrative (4 sentences). Deterministic fallback if no key.
+// CLV Tracker - Claude narrative (4 sentences). Deterministic fallback if no key.
 const SYSTEM = `You are a quantitative sports betting analyst explaining Closing Line Value (CLV) results to a professional audience.
 
 Given the CLV data for a World Cup match, write a structured analysis with exactly four parts:
@@ -10,8 +10,8 @@ Given the CLV data for a World Cup match, write a structured analysis with exact
 
 Rules:
 - Each sentence maximum 25 words.
-- Use precise numbers — implied probabilities to 1 decimal place, decimals to 2dp.
-- Avoid hedging language — be direct.
+- Use precise numbers - implied probabilities to 1 decimal place, decimals to 2dp.
+- Avoid hedging language - be direct.
 - Do not make normative judgements about whether bets were "good" or "bad".
 - Output only the four sentences separated by newlines, no labels.`;
 
@@ -43,7 +43,7 @@ export async function analyse(apiKey: string | undefined, input: AnalyseInput): 
 function impliedOf(input: AnalyseInput): string {
   const key = input.outcome === 'home_win' ? 'home' : input.outcome === 'away_win' ? 'away' : 'draw';
   const v = input.clv[key]?.closingImplied;
-  return v != null ? (v * 100).toFixed(1) : '—';
+  return v != null ? (v * 100).toFixed(1) : '-';
 }
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const signed = (n: number) => (n > 0 ? '+' + n : String(n));
