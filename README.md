@@ -36,7 +36,7 @@ npm run deploy
 
 ## Demo
 
-- `POST /api/run-now` triggers a capture cycle immediately (admin-gated — see Notes). The **Run capture now** button appears when you open the dashboard with `?admin=YOUR_ADMIN_KEY`.
+- `POST /api/run-now` triggers a capture cycle immediately (admin-gated - see Notes). The **Run capture now** button appears when you open the dashboard with `?admin=YOUR_ADMIN_KEY`.
 - Completed matches show as CLV cards; click one for the full per-market breakdown, Claude narrative, and odds timeline; the biggest-movers leaderboard ranks the largest CLV shifts.
 
 ## API
@@ -48,7 +48,7 @@ npm run deploy
 | GET | `/api/clv/:matchId` | full CLV breakdown + narrative + opening/closing |
 | GET | `/api/leaderboard` | biggest CLV movers |
 | GET | `/api/odds-history/:matchId` | rolling snapshots (chart) |
-| POST | `/api/run-now` | trigger a capture now — **requires `X-Admin-Key: $ADMIN_KEY`** (403 otherwise) |
+| POST | `/api/run-now` | trigger a capture now - **requires `X-Admin-Key: $ADMIN_KEY`** (403 otherwise) |
 
 ## Notes / limitations (hackathon scope)
 
