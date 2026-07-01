@@ -36,7 +36,7 @@ npm run deploy
 
 ## Demo
 
-- `POST /api/run-now` (or the **Run capture now** button) triggers a capture cycle immediately.
+- `POST /api/run-now` triggers a capture cycle immediately (admin-gated — see Notes). The **Run capture now** button appears when you open the dashboard with `?admin=YOUR_ADMIN_KEY`.
 - Completed matches show as CLV cards; click one for the full per-market breakdown, Claude narrative, and odds timeline; the biggest-movers leaderboard ranks the largest CLV shifts.
 
 ## API
@@ -48,10 +48,10 @@ npm run deploy
 | GET | `/api/clv/:matchId` | full CLV breakdown + narrative + opening/closing |
 | GET | `/api/leaderboard` | biggest CLV movers |
 | GET | `/api/odds-history/:matchId` | rolling snapshots (chart) |
-| POST | `/api/run-now` | trigger a capture now (gate before submitting) |
+| POST | `/api/run-now` | trigger a capture now — **requires `X-Admin-Key: $ADMIN_KEY`** (403 otherwise) |
 
 ## Notes / limitations (hackathon scope)
 
 - Implied probabilities come from the TxODDS demargined `Pct`; decimals derived as `1/implied`.
 - If the closing line was missed, the agent falls back to the latest available pre-kickoff odds (or opening).
-- `/api/run-now` is open for the demo - gate before final submission.
+- `/api/run-now` is **gated behind `ADMIN_KEY`** (403 without the `X-Admin-Key` header). The "Run capture now" button is hidden for normal visitors and appears only when you open the page with `?admin=YOUR_ADMIN_KEY` (stored locally thereafter). The scheduled cron needs no key. Set it with `wrangler secret put ADMIN_KEY`.
