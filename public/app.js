@@ -74,6 +74,6 @@ function drawChart(snaps) {
   const ctx = el.getContext('2d');
   if (modalChart) modalChart.destroy();
   const ds = (l, k, col) => ({ label: l, data: snaps.map((s) => s[k] * 100), borderColor: col, backgroundColor: col, tension: 0.3, pointRadius: 0, borderWidth: 2 });
-  modalChart = new Chart(ctx, { type: 'line', data: { labels: snaps.map((_, i) => i), datasets: [ds('Home', 'home', '#3B6D11'), ds('Draw', 'draw', '#6F6A61'), ds('Away', 'away', '#A32D2D')] }, options: { animation: false, scales: { y: { title: { display: true, text: 'implied %' } }, x: { display: false } } } });
+  modalChart = new Chart(ctx, { type: 'line', data: { labels: snaps.map((_, i) => i), datasets: [ds('Home', 'home', '#16A34A'), ds('Draw', 'draw', '#8888A4'), ds('Away', 'away', '#DC2626')] }, options: { animation: false, scales: { y: { title: { display: true, text: 'implied %' }, ticks: { color: '#8888A4' }, grid: { color: 'rgba(0,0,0,0.06)' } }, x: { display: false } }, plugins: { legend: { labels: { color: '#1A1A2E', font: { family: 'Inter' } } } } } });
 }
 function closeModal() { qs('#modal').classList.add('hidden'); }

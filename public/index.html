@@ -1,41 +1,82 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Track Closing Line Value for every World Cup match - logs opening odds, tracks the move to close, and computes CLV automatically." />
   <title>CLV Tracker - Closing Line Value</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
+
 <body>
   <header class="topbar">
     <span class="brand">CLV Tracker</span>
     <button id="run" class="btn">Run capture now</button>
   </header>
   <main class="wrap">
-    <p class="tagline muted">Logs opening odds, tracks the move to close, and computes <b>Closing Line Value</b> for every match.
-      <span class="info" title="CLV measures whether the line moved toward an outcome between open and close. Positive CLV on a team means its opening odds had value - you'd have beaten the closing price. Pros use beating the closing line as the strongest proxy for edge.">What is CLV?</span>
+    <p class="tagline muted">Logs opening odds, tracks the move to close, and computes <b>Closing Line Value</b> for
+      every match.
+      <span class="info"
+        title="CLV measures whether the line moved toward an outcome between open and close. Positive CLV on a team means its opening odds had value - you'd have beaten the closing price. Pros use beating the closing line as the strongest proxy for edge.">What
+        is CLV?</span>
     </p>
 
     <section class="grid4">
-      <div class="stat"><div id="s-matches" class="num">0</div><div class="lbl">Matches processed</div></div>
-      <div class="stat"><div id="s-move" class="num">0</div><div class="lbl">Avg movement (pp)</div></div>
-      <div class="stat"><div id="s-major" class="num">0</div><div class="lbl">Major moves (≥10pp)</div></div>
-      <div class="stat"><div id="s-home" class="num">0</div><div class="lbl">Avg home CLV (pp)</div></div>
+      <div class="stat">
+        <div id="s-matches" class="num">0</div>
+        <div class="lbl">Matches processed</div>
+      </div>
+      <div class="stat">
+        <div id="s-move" class="num">0</div>
+        <div class="lbl">Avg movement (pp)</div>
+      </div>
+      <div class="stat">
+        <div id="s-major" class="num">0</div>
+        <div class="lbl">Major moves (≥10pp)</div>
+      </div>
+      <div class="stat">
+        <div id="s-home" class="num">0</div>
+        <div class="lbl">Avg home CLV (pp)</div>
+      </div>
     </section>
 
     <section class="panel">
       <h2>Biggest movers</h2>
-      <table class="lb"><thead><tr><th>Match</th><th>Market</th><th>Open</th><th>Close</th><th>CLV</th><th>Outcome</th></tr></thead>
-        <tbody id="lb-body"><tr><td colspan="6" class="muted">No completed matches yet.</td></tr></tbody></table>
+      <table class="lb">
+        <thead>
+          <tr>
+            <th>Match</th>
+            <th>Market</th>
+            <th>Open</th>
+            <th>Close</th>
+            <th>CLV</th>
+            <th>Outcome</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body">
+          <tr>
+            <td colspan="6" class="muted">No completed matches yet.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section class="panel">
       <h2>Per-match CLV</h2>
-      <div id="cards"><p class="muted">Cards appear as matches complete (opening → closing → CLV → outcome).</p></div>
+      <div id="cards">
+        <p class="muted">Cards appear as matches complete (opening → closing → CLV → outcome).</p>
+      </div>
     </section>
   </main>
-  <div id="modal" class="modal-back hidden"><div class="modal" id="modal-body"></div></div>
+  <div id="modal" class="modal-back hidden">
+    <div class="modal" id="modal-body"></div>
+  </div>
   <script src="/app.js"></script>
 </body>
+
 </html>
