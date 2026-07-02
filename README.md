@@ -2,7 +2,7 @@
 
 An autonomous agent that logs opening odds for every World Cup match, tracks the move to close, and computes **Closing Line Value (CLV)** - the gold-standard metric pros use to measure edge - with a Claude narrative and a biggest-movers leaderboard. Submitted to the Superteam × TxODDS World Cup Hackathon - Trading Tools & Agents track.
 
-**Stack:** Cloudflare Workers + Cron + D1 + Claude. No Container.
+**Stack:** Cloudflare Workers + Cron + D1 + DeepInfra LLM. No Container.
 
 - **Live:** https://clvtracker.catchspider2002.workers.dev
 - **GitHub:** https://github.com/catchspider2002/clvtracker
@@ -17,7 +17,7 @@ If a team opens at 2.10 (47.6% implied) and closes at 1.75 (57.1%), the line sho
 
 - **Capture** (`src/worker.ts` cron, every minute): on first sighting it records the **opening** line; every ~15 min it appends a **rolling** snapshot; in the final 10 min before kickoff it records the **closing** line.
 - **Compute** (`src/clvCalculator.js` - the judging centerpiece, plain JS + JSDoc): on full time, CLV per market, magnitude buckets, total movement, and a verdict.
-- **Narrate** (`src/analyser.ts`): Claude (`claude-sonnet-4-6`) writes a 4-sentence analysis; deterministic fallback if no key.
+- **Narrate** (`src/analyser.ts`): DeepInfra LLM writes a 4-sentence analysis; deterministic fallback if no key.
 - **Dashboard**: tournament summary, biggest-movers leaderboard, per-match CLV cards (open→close→CLV→outcome + narrative + odds timeline chart).
 
 ## Setup & deploy
@@ -28,7 +28,7 @@ wrangler login
 wrangler d1 create clvtracker           # paste id into wrangler.toml
 npm run db:init:remote
 wrangler secret put TXLINE_API_KEY
-wrangler secret put ANTHROPIC_API_KEY    # optional (Claude narrative)
+wrangler secret put DEEPINFRA_API_KEY    # optional (LLM narrative)
 npm run deploy
 ```
 
@@ -37,7 +37,7 @@ npm run deploy
 ## Demo
 
 - `POST /api/run-now` triggers a capture cycle immediately (admin-gated - see Notes). The **Run capture now** button appears when you open the dashboard with `?admin=YOUR_ADMIN_KEY`.
-- Completed matches show as CLV cards; click one for the full per-market breakdown, Claude narrative, and odds timeline; the biggest-movers leaderboard ranks the largest CLV shifts.
+- Completed matches show as CLV cards; click one for the full per-market breakdown, LLM narrative, and odds timeline; the biggest-movers leaderboard ranks the largest CLV shifts.
 
 ## API
 

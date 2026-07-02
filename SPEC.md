@@ -325,7 +325,7 @@ Sort by absolute CLV descending. Toggle between "shortened" and "drifted" filter
 TXLINE_API_KEY=your_txline_key
 TXLINE_SSE_URL=https://txline.txodds.com/stream
 TXLINE_BASE_URL=https://txline.txodds.com
-ANTHROPIC_API_KEY=your_anthropic_key
+DEEPINFRA_API_KEY="your_deepinfra_key"
 PORT=3001
 ```
 

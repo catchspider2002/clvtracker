@@ -14,7 +14,7 @@ Pure **Workers + Cron + D1 + Claude** - no Container. A single 1-minute cron cap
 | opening (daily) + rolling (15m) + closing (T-10..0) crons | one Worker `scheduled` cron `* * * * *` → `runCron()`, branching on time-to-kickoff |
 | `oddsLogger.js` | `processMatch()` writes opening on first sighting, rolling every ~15m, closing in the final 10m |
 | `clvCalculator.js` | `src/clvCalculator.js` - plain JS + JSDoc, `calculateCLV` / `calculateMatchCLV` / magnitude / verdict. **Centerpiece.** |
-| `analyser.js` (Claude narrative) | `src/analyser.ts` - `claude-sonnet-4-6`, 4 sentences, deterministic fallback |
+| `analyser.js` (DeepInfra narrative) | `src/analyser.ts` + `src/llm.ts` - 4 sentences, deterministic fallback |
 | TxLINE REST/SSE | `src/txline.ts` - auth + fixtures + `getOdds` (demargined `Pct`) + `getResult` |
 | `db/*.json` | **D1** `matches` (opening/closing/CLV/narrative/outcome) + `rolling` (timeline) + `kv` |
 | post-match (`full_time`) | computed in the cron when a match is first seen finished |
@@ -41,7 +41,7 @@ database_name = "clvtracker"
 database_id = "REPLACE_WITH_D1_ID"
 ```
 
-Secrets: `TXLINE_API_KEY` (required), `ANTHROPIC_API_KEY` (recommended - Claude narrative).
+Secrets: `TXLINE_API_KEY` (required), `DEEPINFRA_API_KEY` (recommended - LLM narrative).
 
 ## Deploy
 
@@ -50,7 +50,7 @@ npm install && wrangler login
 wrangler d1 create clvtracker          # paste id into wrangler.toml
 npm run db:init:remote
 wrangler secret put TXLINE_API_KEY
-wrangler secret put ANTHROPIC_API_KEY
+wrangler secret put DEEPINFRA_API_KEY
 npm run deploy
 ```
 

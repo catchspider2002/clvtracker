@@ -4,7 +4,7 @@ compatibility_date = "2026-01-01"
 
 # Secrets (never commit) - set with:
 #   wrangler secret put TXLINE_API_KEY
-#   wrangler secret put ANTHROPIC_API_KEY   # for the Claude CLV narrative
+#   wrangler secret put DEEPINFRA_API_KEY   # for the CLV narrative (DeepInfra LLM)
 #   wrangler secret put ADMIN_KEY           # gates POST /api/run-now (+ its dashboard button)
 # (No Container - a 1-minute cron captures opening/rolling/closing odds and computes CLV on full time.)
 

@@ -1,4 +1,6 @@
-// CLV Tracker - Claude narrative (4 sentences). Deterministic fallback if no key.
+// CLV Tracker - DeepInfra narrative (4 sentences). Deterministic fallback if no key.
+import { chat } from './llm';
+
 const SYSTEM = `You are a quantitative sports betting analyst explaining Closing Line Value (CLV) results to a professional audience.
 
 Given the CLV data for a World Cup match, write a structured analysis with exactly four parts:
@@ -29,14 +31,8 @@ export async function analyse(apiKey: string | undefined, input: AnalyseInput): 
     `Final score ${input.finalScore} (${input.outcome.replace('_', ' ')}); the closing line gave that outcome about ${impliedOf(input)}%.`;
   if (!apiKey) return fallback;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 180, system: SYSTEM, messages: [{ role: 'user', content: JSON.stringify(input) }] }),
-    });
-    if (!res.ok) return fallback;
-    const data = await res.json() as { content?: { text?: string }[] };
-    return data.content?.[0]?.text?.trim() || fallback;
+    const text = await chat(apiKey, { system: SYSTEM, user: JSON.stringify(input), maxTokens: 180 });
+    return text || fallback;
   } catch { return fallback; }
 }
 

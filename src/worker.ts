@@ -3,7 +3,7 @@ import { listFixtures, getOdds, getResult, TxEnv } from './txline';
 import { calculateMatchCLV, MARKETS } from './clvCalculator.js';
 import { analyse } from './analyser';
 
-export interface Env { DB: D1Database; ASSETS: Fetcher; TXLINE_API_KEY?: string; ANTHROPIC_API_KEY?: string; ADMIN_KEY?: string }
+export interface Env { DB: D1Database; ASSETS: Fetcher; TXLINE_API_KEY?: string; DEEPINFRA_API_KEY?: string; ADMIN_KEY?: string }
 
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
 const json = (d: unknown, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { 'Content-Type': 'application/json', ...CORS } });
@@ -77,7 +77,7 @@ async function processMatch(env: Env, txenv: TxEnv, fx: { fixtureId: number; hom
       : (odds || opening);
     const clv = calculateMatchCLV(opening, closing);
     const finalScore = `${result.homeGoals}-${result.awayGoals}`;
-    const narrative = await analyse(env.ANTHROPIC_API_KEY, { home: row.home_team, away: row.away_team, finalScore, outcome: result.outcome || 'draw', clv });
+    const narrative = await analyse(env.DEEPINFRA_API_KEY, { home: row.home_team, away: row.away_team, finalScore, outcome: result.outcome || 'draw', clv });
     await env.DB.prepare('UPDATE matches SET closing_implied=?, closing_decimal=?, closing_at=COALESCE(closing_at,?), outcome=?, final_score=?, clv=?, narrative=?, total_movement=?, status=?, updated_at=? WHERE match_id=?')
       .bind(JSON.stringify(closing.implied), JSON.stringify(closing.decimal), now, result.outcome, finalScore, JSON.stringify(clv), narrative, clv.totalMovement, 'done', new Date().toISOString(), matchId).run();
     return;

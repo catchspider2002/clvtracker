@@ -16,7 +16,7 @@ Live: https://clvtracker.catchspider2002.workers.dev · Repo: https://github.com
 
 ## ⏳ Before submitting
 
-- [ ] **Add `ANTHROPIC_API_KEY`**: `wrangler secret put ANTHROPIC_API_KEY` (Claude narrative; deterministic fallback works without it)
+- [ ] **Add `DEEPINFRA_API_KEY`**: `wrangler secret put DEEPINFRA_API_KEY` (LLM narrative; deterministic fallback works without it)
 - [ ] **Let it bank opening lines** - leave it running so upcoming matches get a clean opening baseline
 - [ ] **Record demo video** (≤5 min): show a CLV card (open→close→CLV→outcome), the leaderboard, odds timeline, and `clvCalculator.js`
 - [ ] **Add demo video link** to README + submission form
